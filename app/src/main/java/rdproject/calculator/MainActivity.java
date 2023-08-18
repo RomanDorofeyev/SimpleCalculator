@@ -1,7 +1,7 @@
 package rdproject.calculator;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class ModelViev{
+        public static final String TAG = "Debugging";
         private CalcHelper calcHelper = new CalcHelper();
         private static String currentOperation = null;
         private static String lastOperation = null;
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             lastOperation = null;
             currentOperation = null;
             justResulted = false;
-            Log.d("Debugging", "justResulted = " + justResulted);
+            Log.d(TAG, "justResulted = " + justResulted);
         }
 
         public void stepBack() {
@@ -232,9 +233,9 @@ public class MainActivity extends AppCompatActivity {
                 currentOperation = s;
                 currentNumber1 = mainWindow.getText().toString();
                 currentNumber1 = currentNumber1.substring(currentNumber1.lastIndexOf("\n") + 1); //getting last string of view
-                Log.d("Debugging", "currentNumber1 just captured = " + currentNumber1);
+                Log.d(TAG, "currentNumber1 just captured = " + currentNumber1);
                 currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode
-                Log.d("Debugging", "currentNumber1 normalized = " + currentNumber1);
+                Log.d(TAG, "currentNumber1 normalized = " + currentNumber1);
                 if (justResulted) {
                     reNewView(s);
                 } else {
@@ -253,13 +254,13 @@ public class MainActivity extends AppCompatActivity {
                 String result = "";
                 String formattedResult = "";
                 try {
-                    Log.d("Debugging", "currentNumber1 inconing to produceResult = " + currentNumber1);
+                    Log.d(TAG, "currentNumber1 inconing to produceResult = " + currentNumber1);
                     currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode before calculating ????????????
-                    Log.d("Debugging", "currentNumber1 normalized in produceResult = " + currentNumber1);  // may be we don't need to normalize number here
+                    Log.d(TAG, "currentNumber1 normalized in produceResult = " + currentNumber1);  // may be we don't need to normalize number here
                     result = calcHelper.calculate(currentNumber1, currentNumber2, currentOperation);
-                    Log.d("Debugging", "result in produceResult = " + result);
+                    Log.d(TAG, "result in produceResult = " + result);
                     formattedResult = formatter.formatNumber(result);  // testing............................................................
-                    Log.d("Debugging", "formattedResult in produceResult = " + formattedResult);
+                    Log.d(TAG, "formattedResult in produceResult = " + formattedResult);
                 } catch (Exception e) { }
                 currentOperation = null;
                 currentNumber1 = result;
@@ -273,19 +274,19 @@ public class MainActivity extends AppCompatActivity {
 
             currentNumber2 = mainWindow.getText().toString();
             currentNumber2 = currentNumber2.substring(currentNumber2.lastIndexOf("\n") + 1); //getting last string of view
-            Log.d("Debugging", "currentNumber2 getting = " + currentNumber2);
+            Log.d(TAG, "currentNumber2 getting = " + currentNumber2);
             currentNumber2 = formatter.normalizeNumber(currentNumber2);       // testing.......................................................................
-            Log.d("Debugging", "currentNumber2 normalized = " + currentNumber2);
+            Log.d(TAG, "currentNumber2 normalized = " + currentNumber2);
             String result = "";
             String formattedResult = "";
             try {
-                Log.d("Debugging", "2 block, currentNumber1 inconing to produceResult = " + currentNumber1);
+                Log.d(TAG, "2 block, currentNumber1 inconing to produceResult = " + currentNumber1);
                 currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode before calculating  ?????????????????
-                Log.d("Debugging", "2 block, currentNumber1 normalized in produceResult = " + currentNumber1);
+                Log.d(TAG, "2 block, currentNumber1 normalized in produceResult = " + currentNumber1);
                 result = calcHelper.calculate(currentNumber1, currentNumber2, currentOperation);
-                Log.d("Debugging", "2 block, result in produceResult = " + result);
+                Log.d(TAG, "2 block, result in produceResult = " + result);
                 formattedResult = formatter.formatNumber(result);  // testing............................................................
-                Log.d("Debugging", "2 block, formattedResult in produceResult = " + formattedResult);
+                Log.d(TAG, "2 block, formattedResult in produceResult = " + formattedResult);
             } catch (Exception e) {}
             lastOperation = currentOperation;
             currentOperation = null;
@@ -340,15 +341,15 @@ public class MainActivity extends AppCompatActivity {
             if (isOperationActive()) return;
             if (justResulted) return;
 
-            Log.d("Debugging", "text = " + text + ", currentNumber1 = " + currentNumber1);
-            Log.d("Debugging", "justResulted = " + justResulted);
+            Log.d(TAG, "text = " + text + ", currentNumber1 = " + currentNumber1);
+            Log.d(TAG, "justResulted = " + justResulted);
 
 //working code for /100
             if (text.contains("\n")) {
                 startText = text.substring(0, text.lastIndexOf("\n") + 1);
                 text = text.substring(text.lastIndexOf("\n") + 1); //getting last string of view
             }
-            Log.d("Debugging", "text = " + text);
+            Log.d(TAG, "text = " + text);
             if (currentNumber1 != null) {
                 text = calcHelper.percOperation(text, currentNumber1);
             }  else {
