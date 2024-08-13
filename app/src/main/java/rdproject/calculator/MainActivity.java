@@ -1,84 +1,83 @@
 package rdproject.calculator;
 
+import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static TextView mainWindow;
-    private static TextView memory;
+    private TextView mainWindow;
+    private TextView memoryView;
     private Button clear, mPlus, mMinus, mRecall, backSpace, one, two, three, four, five, six, seven, eight,
             nine, zero, point, percent, divide, multiply, minus, plus, plusMinus, x2, sqrt, ravno;
     private Toast toast;
-    private static NumberFormatter formatter = NumberFormatter.getFormatter();
-
-    private List<Button> buttonList;
-    private ButtonListener listener = ButtonListener.getInstance();
-    public static TextView getMainWindow() {
-        return mainWindow;
-    }
-    public static TextView getMemoryViev() {
-        return memory;
-    }
+    private static final NumberFormatter formatter = NumberFormatter.getFormatter();
     private static long back_pressed;
 
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.background_main));
+            getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        mainWindow = (TextView) findViewById(R.id.textView);
+        mainWindow = findViewById(R.id.textView);
         mainWindow.setMovementMethod(new ScrollingMovementMethod());
         mainWindow.setText("");
-        memory = (TextView) findViewById(R.id.memoryView);
+        mainWindow.setHint("Version " + BuildConfig.VERSION_NAME);
+        memoryView = findViewById(R.id.memoryView);
         createAllButtons();
-        //clear.setText(Html.fromHtml(clearBtn));
-        listener = ButtonListener.getInstance();
-        buttonList = initButtonList();
+        ButtonListener listener = new ButtonListener(new ModelView(), this);
+        List<Button> buttonList = initButtonList();
         for (Button button : buttonList) {
             button.setOnClickListener(listener);
         }
         clear.setOnLongClickListener(listener);
-        listener.setContext(this);             //experiment
     }
 
     private void createAllButtons() {
-        clear = (Button) findViewById(R.id.c);
-        mPlus = (Button) findViewById(R.id.m_plus);
-        mMinus = (Button) findViewById(R.id.m_minus);
-        mRecall = (Button) findViewById(R.id.m_r);
-        backSpace = (Button) findViewById(R.id.stepback);
-        one = (Button) findViewById(R.id.button1);
-        two = (Button) findViewById(R.id.button2);
-        three = (Button) findViewById(R.id.button3);
-        four = (Button) findViewById(R.id.button4);
-        five = (Button) findViewById(R.id.button5);
-        six = (Button) findViewById(R.id.button6);
-        seven = (Button) findViewById(R.id.button7);
-        eight = (Button) findViewById(R.id.button8);
-        nine = (Button) findViewById(R.id.button9);
-        zero = (Button) findViewById(R.id.button0);
-        point = (Button) findViewById(R.id.button_point);
-        percent = (Button) findViewById(R.id.button_percent);
-        divide = (Button) findViewById(R.id.devide);
-        multiply = (Button) findViewById(R.id.produce);
-        minus = (Button) findViewById(R.id.minus);
-        plus = (Button) findViewById(R.id.plus);
-        plusMinus = (Button) findViewById(R.id.plus_minus);
-        x2 = (Button) findViewById(R.id.x2);
-        sqrt = (Button) findViewById(R.id.sqrt);
-        ravno = (Button) findViewById(R.id.calculate);
+        clear = findViewById(R.id.c);
+        mPlus = findViewById(R.id.m_plus);
+        mMinus = findViewById(R.id.m_minus);
+        mRecall = findViewById(R.id.m_r);
+        backSpace = findViewById(R.id.stepback);
+        one = findViewById(R.id.button1);
+        two = findViewById(R.id.button2);
+        three = findViewById(R.id.button3);
+        four = findViewById(R.id.button4);
+        five = findViewById(R.id.button5);
+        six = findViewById(R.id.button6);
+        seven = findViewById(R.id.button7);
+        eight = findViewById(R.id.button8);
+        nine = findViewById(R.id.button9);
+        zero = findViewById(R.id.button0);
+        point = findViewById(R.id.button_point);
+        percent = findViewById(R.id.button_percent);
+        divide = findViewById(R.id.devide);
+        multiply = findViewById(R.id.produce);
+        minus = findViewById(R.id.minus);
+        plus = findViewById(R.id.plus);
+        plusMinus = findViewById(R.id.plus_minus);
+        x2 = findViewById(R.id.x2);
+        sqrt = findViewById(R.id.sqrt);
+        ravno = findViewById(R.id.calculate);
     }
 
     private List<Button> initButtonList() {
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToast(String text) {
-
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
     }
@@ -106,18 +104,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         if (toast != null) toast.cancel();
         super.onStop();
     }
 
-    public static class ModelViev{
-        public static final String TAG = "Debugging";
-        private CalcHelper calcHelper = new CalcHelper();
-        private static String currentOperation = null;
-        private static String lastOperation = null;
-        private static String currentNumber1 = null;
-        private static String currentNumber2 = null;
+    public TextView getMainWindow() {
+        return mainWindow;
+    }
+
+    public TextView getMemoryView() {
+        return memoryView;
+    }
+
+
+    public class ModelView {
+        private final CalcHelper calcHelper = new CalcHelper();
+        private String currentOperation = null;
+        private String lastOperation = null;
+        private String currentNumber1 = null;
+        private String currentNumber2 = null;
         protected boolean isReadyToNum2 = false;
         protected boolean justResulted = false;
 
@@ -136,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
             lastOperation = null;
             currentOperation = null;
             justResulted = false;
-            Log.d(TAG, "justResulted = " + justResulted);
         }
 
         public void stepBack() {
@@ -148,16 +153,16 @@ public class MainActivity extends AppCompatActivity {
                     text = text.substring(0, text.length() - 1);
                 }
                 mainWindow.setText(text);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
-            if (mainWindow.getText().toString().equals("")){
+            if (mainWindow.getText().toString().isEmpty()) {
                 clearView();
             }
         }
 
         public String clearLastNum() {
-            String text = "";
-            String lastNum = "";
+            String text;
+            String lastNum;
             text = mainWindow.getText().toString();
             lastNum = text.substring(text.lastIndexOf("\n") + 1);
             try {
@@ -172,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void reNewView(String s) {
-            if (s == null || s.equals("")) return;
+            if (s == null || s.isEmpty()) return;
             String text = mainWindow.getText().toString();
             if (text.substring(text.lastIndexOf("\n") + 1).contains(".") && s.equals(".")) return;
             if (justResulted && !isReadyToNum2) {
@@ -203,10 +208,10 @@ public class MainActivity extends AppCompatActivity {
             String text = "";
             try {
                 text = mainWindow.getText().toString();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
-            if (text.equals("")) return;
+            if (text.isEmpty()) return;
             if (text.endsWith("\n")) return;
 
             if (isOperationActive()) {
@@ -233,9 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 currentOperation = s;
                 currentNumber1 = mainWindow.getText().toString();
                 currentNumber1 = currentNumber1.substring(currentNumber1.lastIndexOf("\n") + 1); //getting last string of view
-                Log.d(TAG, "currentNumber1 just captured = " + currentNumber1);
                 currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode
-                Log.d(TAG, "currentNumber1 normalized = " + currentNumber1);
                 if (justResulted) {
                     reNewView(s);
                 } else {
@@ -254,14 +257,11 @@ public class MainActivity extends AppCompatActivity {
                 String result = "";
                 String formattedResult = "";
                 try {
-                    Log.d(TAG, "currentNumber1 inconing to produceResult = " + currentNumber1);
                     currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode before calculating ????????????
-                    Log.d(TAG, "currentNumber1 normalized in produceResult = " + currentNumber1);  // may be we don't need to normalize number here
                     result = calcHelper.calculate(currentNumber1, currentNumber2, currentOperation);
-                    Log.d(TAG, "result in produceResult = " + result);
                     formattedResult = formatter.formatNumber(result);  // testing............................................................
-                    Log.d(TAG, "formattedResult in produceResult = " + formattedResult);
-                } catch (Exception e) { }
+                } catch (Exception ignored) {
+                }
                 currentOperation = null;
                 currentNumber1 = result;
                 reNewView("\n" + "=" + "\n" + formattedResult);
@@ -274,20 +274,15 @@ public class MainActivity extends AppCompatActivity {
 
             currentNumber2 = mainWindow.getText().toString();
             currentNumber2 = currentNumber2.substring(currentNumber2.lastIndexOf("\n") + 1); //getting last string of view
-            Log.d(TAG, "currentNumber2 getting = " + currentNumber2);
             currentNumber2 = formatter.normalizeNumber(currentNumber2);       // testing.......................................................................
-            Log.d(TAG, "currentNumber2 normalized = " + currentNumber2);
             String result = "";
             String formattedResult = "";
             try {
-                Log.d(TAG, "2 block, currentNumber1 inconing to produceResult = " + currentNumber1);
                 currentNumber1 = formatter.normalizeNumber(currentNumber1);  // here we get the number from text view in normal mode before calculating  ?????????????????
-                Log.d(TAG, "2 block, currentNumber1 normalized in produceResult = " + currentNumber1);
                 result = calcHelper.calculate(currentNumber1, currentNumber2, currentOperation);
-                Log.d(TAG, "2 block, result in produceResult = " + result);
                 formattedResult = formatter.formatNumber(result);  // testing............................................................
-                Log.d(TAG, "2 block, formattedResult in produceResult = " + formattedResult);
-            } catch (Exception e) {}
+            } catch (Exception ignored) {
+            }
             lastOperation = currentOperation;
             currentOperation = null;
             currentNumber1 = result;
@@ -300,10 +295,10 @@ public class MainActivity extends AppCompatActivity {
             String text = "";
             try {
                 text = mainWindow.getText().toString();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
-            if (text.equals("")) return;
+            if (text.isEmpty()) return;
             if (text.endsWith("\n")) return;
             if (isOperationActive()) return;
 
@@ -311,48 +306,41 @@ public class MainActivity extends AppCompatActivity {
             switch (operation) {
                 case "x2":
                     try {
-                    text = calcHelper.simpleOperation(text, "x2");
-                    } catch (Exception e) {
-                        //MainActivity.showToast(this, "Opa-4ike");
+                        text = calcHelper.simpleOperation(text, "x2");
+                    } catch (Exception ignored) {
                     }
                     break;
                 case "sqrt":
                     try {
                         text = calcHelper.simpleOperation(text, "sqrt");
-                    } catch (Exception e) {
-                        //MainActivity.showToast(this, "Opa-4ike");
+                    } catch (Exception ignored) {
                     }
                     break;
             }
             reNewView(text);
-            // isReadyToNum2 = false;
-            // justResulted = true;
         }
+
         public void percent() {
             String text = "";
-            String startText ="";
+            String startText = "";
             try {
                 text = mainWindow.getText().toString();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
-            if (text.equals("")) return;
+            if (text.isEmpty()) return;
             if (text.endsWith("\n")) return;
             if (isOperationActive()) return;
             if (justResulted) return;
-
-            Log.d(TAG, "text = " + text + ", currentNumber1 = " + currentNumber1);
-            Log.d(TAG, "justResulted = " + justResulted);
 
 //working code for /100
             if (text.contains("\n")) {
                 startText = text.substring(0, text.lastIndexOf("\n") + 1);
                 text = text.substring(text.lastIndexOf("\n") + 1); //getting last string of view
             }
-            Log.d(TAG, "text = " + text);
             if (currentNumber1 != null) {
                 text = calcHelper.percOperation(text, currentNumber1);
-            }  else {
+            } else {
                 text = calcHelper.percOperation(text);
             }
             text = startText + text;
@@ -361,22 +349,21 @@ public class MainActivity extends AppCompatActivity {
 // it does work (but need to be tested with Engineering numbers)
 
         public void plusMinus() {
-            if (isOperationActive() || mainWindow.getText().toString().equals("")) return;
+            if (isOperationActive() || mainWindow.getText().toString().isEmpty()) return;
             try {
                 String text = mainWindow.getText().toString();
-                if (text.endsWith("\n"))  return;
+                if (text.endsWith("\n")) return;
                 if (!text.contains("\n")) {
-                    text = text.startsWith("-") ? text.substring(1): "-" + text;
-                }
-                else {
+                    text = text.startsWith("-") ? text.substring(1) : "-" + text;
+                } else {
                     String currentNumber = text.substring(text.lastIndexOf("\n") + 1);
-                    currentNumber = currentNumber.startsWith("-") ? currentNumber.substring(1): "-" + currentNumber;
-                    text = text.substring(0, text.lastIndexOf("\n")+1);
+                    currentNumber = currentNumber.startsWith("-") ? currentNumber.substring(1) : "-" + currentNumber;
+                    text = text.substring(0, text.lastIndexOf("\n") + 1);
                     text = text + currentNumber;
                 }
                 mainWindow.setText(text);
 
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
     }

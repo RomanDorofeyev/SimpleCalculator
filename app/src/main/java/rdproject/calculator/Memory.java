@@ -1,60 +1,51 @@
 package rdproject.calculator;
 
-import android.util.Log;
 import android.widget.TextView;
 
 public class Memory {
-    private Memory() {
-    }
-    private static Memory memory = new Memory();
-    public static Memory getInstance() {
-        return memory;
+    private String mem = null;
+    private final TextView mainWindow;
+    private final MainActivity.ModelView modelView;
+    private final TextView memoryView;
+    private static final NumberFormatter formatter = NumberFormatter.getFormatter();
+
+    public Memory(MainActivity.ModelView modelView, TextView mainWindow, TextView memoryView) {
+        this.mainWindow = mainWindow;
+        this.modelView = modelView;
+        this.memoryView = memoryView;
     }
 
     public String getMem() {
         return mem;
     }
 
-    private String mem = null;
-    private TextView mainWindow = MainActivity.getMainWindow();
-    private MainActivity.ModelViev modelViev = ButtonListener.getModelViev();
-    private TextView memoryViev = MainActivity.getMemoryViev();
-    private static NumberFormatter formatter = NumberFormatter.getFormatter();
-
-
     public void plus() {
         mem = mem == null ? "0" : formatter.normalizeNumber(mem);
-        Log.d("Debugging", "M = " + mem + "   GettingLastStringOfView = " + GettingLastStringOfView());
             CalcHelper calcHelper = new CalcHelper();
             mem = calcHelper.calculate(mem, GettingLastStringOfView(), "+");
-        Log.d("Debugging", "Calculated M = " + mem );
-        memoryViev.setText(formatter.formatNumber(mem));
+        memoryView.setText(formatter.formatNumber(mem));
     }
 
     public void minus() {
         mem = mem == null ? "0" : formatter.normalizeNumber(mem);
         CalcHelper calcHelper = new CalcHelper();
         mem = calcHelper.calculate(mem, GettingLastStringOfView(), "-");
-        Log.d("Debugging", "M = " + mem );
-        memoryViev.setText(formatter.formatNumber(mem));
+        memoryView.setText(formatter.formatNumber(mem));
     }
 
     public void recall() {
         if (mem == null) return;
-        Log.d("Debugging", "Recalling: M = " + mem );
-
-
         try {
-            if ( !modelViev.isReadyToNum2 && !modelViev.justResulted) {
-                modelViev.reNewView( "\n" + mem );
+            if ( !modelView.isReadyToNum2 && !modelView.justResulted) {
+                modelView.reNewView( "\n" + mem );
                 return;
             }
-            modelViev.reNewView(mem);
-        } catch (Exception e) {
+            modelView.reNewView(mem);
+        } catch (Exception ignored) {
         }
     }
     public void memoryClear() {
-        memoryViev.setText("");
+        memoryView.setText("");
         mem = null;
     }
 
@@ -63,15 +54,14 @@ public class Memory {
         try {
             text = mainWindow.getText().toString();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
-        if (text.equals("") || text.endsWith("\n") || modelViev.isOperationActive()) {
+        if (text.isEmpty() || text.endsWith("\n") || modelView.isOperationActive()) {
             return "0";
         }
         if (text.contains("\n")) {
             text = text.substring(text.lastIndexOf("\n") + 1); //getting last string of view
         }
-        Log.d("Debugging", "Captured text = " + text );
         text = formatter.normalizeNumber(text);
         return text;
     }

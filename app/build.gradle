@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
 
-version = '1.1.0'
+version = '2.0.0'
 
 android {
     signingConfigs {
         Calc {
         }
     }
-    compileSdkVersion 34
+    compileSdk 34
     defaultConfig {
         applicationId "rdproject.calculator"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 34
-        versionCode 3
+        versionCode 4
         versionName version
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.Calc
@@ -26,17 +26,14 @@ android {
             signingConfig signingConfigs.Calc
         }
     }
-    dexOptions {
-    }
+
     productFlavors {
     }
     namespace 'rdproject.calculator'
 }
 
 dependencies {
-//    compile fileTree(include: ['*.jar'], dir: 'libs')
-
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.12.0'
 }

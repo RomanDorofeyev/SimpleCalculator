@@ -11,20 +11,22 @@ public class NumberFormatter {
     public static NumberFormatter getFormatter() {
         return formatter;
     }
-    private int reqiuredLength;
 
-    public void setReqiuredLength(int reqiuredLength) {
-        this.reqiuredLength = reqiuredLength;
-        formatter = new NumberFormatter(reqiuredLength);
+    private int requiredLength;
+
+    public void setRequiredLength(int requiredLength) {
+        this.requiredLength = requiredLength;
+        formatter = new NumberFormatter(requiredLength);
     }
 
-    private DecimalFormat decimalFormat;
-    public NumberFormatter(int reqiuredLength) {
-        this.reqiuredLength = reqiuredLength;
+    private final DecimalFormat decimalFormat;
+
+    public NumberFormatter(int requiredLength) {
+        this.requiredLength = requiredLength;
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(' ');
         symbols.setDecimalSeparator('.');
-        decimalFormat =  new DecimalFormat("#,###.###############", symbols);
+        decimalFormat = new DecimalFormat("#,###.###############", symbols);
         decimalFormat.setParseBigDecimal(true);
     }
 
@@ -36,38 +38,37 @@ public class NumberFormatter {
         if (number.contains("+")) return number;
         BigDecimal bd = new BigDecimal("0");
         try {
-            bd = (BigDecimal)decimalFormat.parse(number);
+            bd = (BigDecimal) decimalFormat.parse(number);
         } catch (ParseException e) {
             // do nothing
         }
         return bd.toString();
     }
-  // problems with negative numbers
+
+    // problems with negative numbers
     public String formatNumber(String number) {
         String engineeringStr;
         boolean negative = number.startsWith("-");
         if (number.contains("+")) {        // this just in case we get engineering number here
-             number = new BigDecimal(number).toPlainString();
+            number = new BigDecimal(number).toPlainString();
         }
 
-        if (!longerThan(number, reqiuredLength)) {
-            String string = decimalFormat.format(new BigDecimal(number));
-            return string;
+        if (!longerThan(number, requiredLength)) {
+            return decimalFormat.format(new BigDecimal(number));
         }
-        if (number.contains(".") && number.indexOf(".") < reqiuredLength){
+        if (number.contains(".") && number.indexOf(".") < requiredLength) {
             String string = decimalFormat.format(new BigDecimal(number));
-            return string.substring(0, reqiuredLength);
+            return string.substring(0, requiredLength);
         }
-       if (!negative) {
-           engineeringStr = number.substring(0, 1) + "." + number.substring(1, reqiuredLength - 5);
-           int exp = number.contains(".") ? number.indexOf(".") - 1 : number.length() - 1;
-           engineeringStr += "E+" + exp;
-       }
-       else {
-           engineeringStr = number.substring(0, 2) + "." + number.substring(2, reqiuredLength - 5);
-           int exp = number.contains(".") ? number.indexOf(".") - 2 : number.length() - 2;
-           engineeringStr += "E+" + exp;
-       }
+        if (!negative) {
+            engineeringStr = number.charAt(0) + "." + number.substring(1, requiredLength - 5);
+            int exp = number.contains(".") ? number.indexOf(".") - 1 : number.length() - 1;
+            engineeringStr += "E+" + exp;
+        } else {
+            engineeringStr = number.substring(0, 2) + "." + number.substring(2, requiredLength - 5);
+            int exp = number.contains(".") ? number.indexOf(".") - 2 : number.length() - 2;
+            engineeringStr += "E+" + exp;
+        }
         return engineeringStr;
     }
 }

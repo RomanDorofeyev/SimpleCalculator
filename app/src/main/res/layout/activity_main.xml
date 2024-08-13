@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/background_main"
     tools:context="rdproject.calculator.MainActivity">
 
 
@@ -346,11 +346,10 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/rounded_text_viev"
+        android:background="@drawable/rounded_text_view"
         android:clickable="true"
         android:focusable="true"
         android:gravity="bottom"
-        android:hint="@string/Ver"
         android:textAlignment="center"
         android:textColor="@color/white_color"
         android:textSize="36sp"

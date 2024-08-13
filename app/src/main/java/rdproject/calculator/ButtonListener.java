@@ -7,34 +7,23 @@ import android.view.View;
  */
 
 public class ButtonListener implements View.OnClickListener, View.OnLongClickListener {
-    private ButtonListener() {
-    }
-    private final static ButtonListener BUTTON_LISTENER = new ButtonListener();
-    private static MainActivity.ModelViev modelViev = new MainActivity.ModelViev();
+    private final MainActivity.ModelView modelView;
+    private final MainActivity context;
+    private final Memory m;
 
-    public static MainActivity.ModelViev getModelViev() {
-        return modelViev;
-    }
-
-    protected static ButtonListener getInstance() {
-        return BUTTON_LISTENER;
-    }
-    public static Memory m;
-
-    private MainActivity context;
-
-    public void setContext(MainActivity context) {
+    public ButtonListener(MainActivity.ModelView modelView, MainActivity context) {
+        this.modelView = modelView;
         this.context = context;
+        m = new Memory(modelView, context.getMainWindow(), context.getMemoryView());
     }
 
     @Override
     public void onClick(View v) {
-        modelViev.setAlignmentEnd();
+        modelView.setAlignmentEnd();
         context.getMainWindow().setHint("");
-        m = Memory.getInstance();
         switch (v.getId()) {
             case (R.id.c):
-                modelViev.clearView();
+                modelView.clearView();
                 break;
             case (R.id.m_plus):
                 m.plus();
@@ -46,67 +35,67 @@ public class ButtonListener implements View.OnClickListener, View.OnLongClickLis
                 m.recall();
                 break;
             case (R.id.stepback):
-                modelViev.stepBack();
+                modelView.stepBack();
                 break;
             case (R.id.button1):
-                modelViev.reNewView("1");
+                modelView.reNewView("1");
                 break;
             case (R.id.button2):
-                modelViev.reNewView("2");
+                modelView.reNewView("2");
                 break;
             case (R.id.button3):
-                modelViev.reNewView("3");
+                modelView.reNewView("3");
                 break;
             case (R.id.button4):
-                modelViev.reNewView("4");
+                modelView.reNewView("4");
                 break;
             case (R.id.button5):
-                modelViev.reNewView("5");
+                modelView.reNewView("5");
                 break;
             case (R.id.button6):
-                modelViev.reNewView("6");
+                modelView.reNewView("6");
                 break;
             case (R.id.button7):
-                modelViev.reNewView("7");
+                modelView.reNewView("7");
                 break;
             case (R.id.button8):
-                modelViev.reNewView("8");
+                modelView.reNewView("8");
                 break;
             case (R.id.button9):
-                modelViev.reNewView("9");
+                modelView.reNewView("9");
                 break;
             case (R.id.button0):
-                modelViev.reNewView("0");
+                modelView.reNewView("0");
                 break;
             case (R.id.button_point):
-                modelViev.reNewView(".");
+                modelView.reNewView(".");
                 break;
             case (R.id.button_percent):
-                modelViev.percent();
+                modelView.percent();
                 break;
             case (R.id.devide):
-                modelViev.initOperation("/");
+                modelView.initOperation("/");
                 break;
             case (R.id.produce):
-                modelViev.initOperation("x");
+                modelView.initOperation("x");
                 break;
             case (R.id.minus):
-                modelViev.initOperation("-");
+                modelView.initOperation("-");
                 break;
             case (R.id.plus):
-                modelViev.initOperation("+");
+                modelView.initOperation("+");
                 break;
             case (R.id.plus_minus):
-                modelViev.plusMinus();
+                modelView.plusMinus();
                 break;
             case (R.id.x2):
-                modelViev.simple("x2");
+                modelView.simple("x2");
                 break;
             case (R.id.sqrt):
-                modelViev.simple("sqrt");
+                modelView.simple("sqrt");
                 break;
             case (R.id.calculate):
-                modelViev.produceResult();
+                modelView.produceResult();
 
         }
 
@@ -114,7 +103,6 @@ public class ButtonListener implements View.OnClickListener, View.OnLongClickLis
 
     @Override
     public boolean onLongClick(View v) {
-        m = Memory.getInstance();
         if (m.getMem() != null) {
             m.memoryClear();
             context.showToast("Memory successfully cleared");

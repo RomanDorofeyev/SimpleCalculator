@@ -3,7 +3,7 @@ package rdproject.calculator;
 import java.math.BigDecimal;
 
 public class CalcHelper {
-    private Calc calc = Calc.getCalc();
+    private final Calc calc = Calc.getCalc();
 
     public String calculate(String currentNumber1, String currentNumber2, String currentOperation) {
         BigDecimal num1 = new BigDecimal(currentNumber1);
