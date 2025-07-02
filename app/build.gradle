@@ -1,25 +1,25 @@
 apply plugin: 'com.android.application'
 
-version = '2.0.0'
+version = '3.0.0'
 
 android {
     signingConfigs {
         Calc {
         }
     }
-    compileSdk 34
+    compileSdk 36
     defaultConfig {
         applicationId "rdproject.calculator"
         minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 4
+        targetSdkVersion 36
+        versionCode 5
         versionName version
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.Calc
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         calc_beta {
