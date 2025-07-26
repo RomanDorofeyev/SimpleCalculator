@@ -7,6 +7,7 @@
     <color name="background_button">#375A84</color>
     <color name="hidden_color">#747172</color>
     <color name="white_color">#fafafa</color>
+    <color name="digits_color">#2D3E50</color>
 
     <color name="gradient_start_color">#201e1e</color>
     <color name="gradient_end_color">#6e6f71</color>

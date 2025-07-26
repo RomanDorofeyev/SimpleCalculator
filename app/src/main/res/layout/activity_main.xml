@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
+    android:fitsSystemWindows="true"
     tools:context="rdproject.calculator.MainActivity">
 
 
@@ -30,14 +31,11 @@
                 android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/rounded_button"
+                android:gravity="bottom|center"
                 android:lines="2"
-                android:paddingStart="15dp"
-                android:paddingEnd="0dp"
-                android:gravity="start|center_vertical|bottom"
                 android:soundEffectsEnabled="true"
                 android:text="@string/c"
-                android:textSize="26sp"
-                />
+                android:textSize="26sp" />
 
             <Button
                 android:id="@+id/m_plus"
@@ -78,10 +76,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_button"
-                android:drawableEnd="@drawable/ic_backspace_white_42"
-                android:paddingStart="0dp"
-                android:paddingEnd="10dp"
+                android:background="@drawable/stepback_icon_button"
+                android:drawablePadding="100dp"
+                android:gravity="center"
                 android:soundEffectsEnabled="true"
                 android:textSize="30sp" />
         </TableRow>
@@ -257,6 +254,7 @@
                 android:background="@drawable/rounded_button"
                 android:soundEffectsEnabled="true"
                 android:text="@string/minus"
+                android:textScaleX="1.5"
                 android:textSize="30sp" />
 
             <Button
@@ -338,36 +336,36 @@
 
     <TextView
         android:id="@+id/textView"
-        android:textIsSelectable ="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/buton_table"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/rounded_text_view"
         android:clickable="true"
         android:focusable="true"
         android:gravity="bottom"
+        android:inputType="none"
+        android:maxLines="2000"
+        android:scrollbars="none"
         android:textAlignment="center"
         android:textColor="@color/white_color"
+        android:textIsSelectable="true"
         android:textSize="36sp"
-        android:inputType="none"
         android:textStyle="italic"
-        android:maxLines="2000"
-        android:scrollbars = "none"
         tools:ignore="RtlCompat" />
 
     <TextView
         android:id="@+id/memoryView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="@string/memBox"
-        android:textColor="@color/white_color"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView" />
+        android:textColor="@color/white_color" />
 
 </RelativeLayout>

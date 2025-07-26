@@ -5,7 +5,7 @@
     <string name="divide">\u00F7</string>
     <string name="multiply">\u00D7</string>
     <string name="plus_minus">\u00B1</string>
-    <string name="minus"> \u0020 \u0336</string>
+    <string name="minus">\-</string>
     <string name="percent">%</string>
     <string name="plus">+</string>
     <string name="point">.</string>
@@ -20,10 +20,11 @@
     <string name="_8">8</string>
     <string name="_9">9</string>
     <string name="ravno">=</string>
-    <string name="c">мс \n     C</string>
+    <string name="c">мс \nC</string>
     <string name="m">M+</string>
     <string name="m_">M-</string>
     <string name="mr">MR</string>
     <string name="memBox">Memory is empty</string>
     <string name="exitApp">Click again to exit</string>
+    <string name="backspace">backspace</string>
 </resources>

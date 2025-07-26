@@ -8,7 +8,7 @@
         android:startColor="@color/gradient_start_color_new"
         android:type="linear" />
     <stroke
-        android:width="2dip"
+        android:width="0dip"
         android:color="@color/container_stroke_color" />
     <corners
         android:bottomLeftRadius="15dp"

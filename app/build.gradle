@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-version = '3.0.0'
+version = '5.0.0'
 
 android {
     signingConfigs {
@@ -12,7 +12,7 @@ android {
         applicationId "rdproject.calculator"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 5
+        versionCode 6
         versionName version
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.Calc
@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'com.google.android.material:material:1.12.0'
 }
