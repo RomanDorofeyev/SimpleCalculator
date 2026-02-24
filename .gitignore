@@ -1,10 +1,31 @@
-*.iml
+# Built artifacts
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Gradle
 .gradle
-.idea
-/.idea
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE - Android Studio / IntelliJ
+*.iml
+.idea/
+.navigation/
+captures/
+
+# Local config
+local.properties
+
+# Signing keys
+*.keystore
+*.jks
+
+# OS
 .DS_Store
-/build
-/captures
+Thumbs.db
+
+# Native
+.cxx/
+*.externalNativeBuild/

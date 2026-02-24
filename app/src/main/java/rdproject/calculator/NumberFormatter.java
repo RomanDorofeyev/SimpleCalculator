@@ -6,7 +6,10 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
 public class NumberFormatter {
-    private static NumberFormatter formatter = new NumberFormatter(14);
+    private static final int DEFAULT_PRECISION = 14;
+    private static final int ENGINEERING_SUFFIX_LENGTH = 5;
+
+    private static NumberFormatter formatter = new NumberFormatter(DEFAULT_PRECISION);
 
     public static NumberFormatter getFormatter() {
         return formatter;
@@ -61,11 +64,11 @@ public class NumberFormatter {
             return string.substring(0, requiredLength);
         }
         if (!negative) {
-            engineeringStr = number.charAt(0) + "." + number.substring(1, requiredLength - 5);
+            engineeringStr = number.charAt(0) + "." + number.substring(1, requiredLength - ENGINEERING_SUFFIX_LENGTH);
             int exp = number.contains(".") ? number.indexOf(".") - 1 : number.length() - 1;
             engineeringStr += "E+" + exp;
         } else {
-            engineeringStr = number.substring(0, 2) + "." + number.substring(2, requiredLength - 5);
+            engineeringStr = number.substring(0, 2) + "." + number.substring(2, requiredLength - ENGINEERING_SUFFIX_LENGTH);
             int exp = number.contains(".") ? number.indexOf(".") - 2 : number.length() - 2;
             engineeringStr += "E+" + exp;
         }

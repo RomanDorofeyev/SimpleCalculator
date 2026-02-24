@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-version = '5.0.0'
+version = '7.0.0'
 
 android {
     signingConfigs {
@@ -12,7 +12,7 @@ android {
         applicationId "rdproject.calculator"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 6
+        versionCode version.tokenize('.')[0].toInteger()
         versionName version
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.Calc

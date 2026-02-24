@@ -18,6 +18,10 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long BACK_PRESS_INTERVAL_MS = 2000;
+    private static final int PADDING_SMALL = 5;
+    private static final int PADDING_END = 50;
+
     private TextView mainWindow;
     private TextView memoryView;
     private Button clear, mPlus, mMinus, mRecall, backSpace, one, two, three, four, five, six, seven, eight,
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
+        if (back_pressed + BACK_PRESS_INTERVAL_MS > System.currentTimeMillis()) {
             super.onBackPressed();
             return;
         } else {
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void setAlignmentEnd() {
             mainWindow.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            mainWindow.setPadding(5, 5, 50, 5);
+            mainWindow.setPadding(PADDING_SMALL, PADDING_SMALL, PADDING_END, PADDING_SMALL);
         }
 
         public void clearView() {
