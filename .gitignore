@@ -29,3 +29,6 @@ Thumbs.db
 # Native
 .cxx/
 *.externalNativeBuild/
+
+# Session notes
+handoff.md
