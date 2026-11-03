@@ -2,40 +2,165 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Privacy Policy Page</title>
-  <meta name="description" content="Privacy Policy">
-  <meta name="keywords" content="privacy policy">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — Simple Calculator</title>
+  <meta name="description" content="Privacy Policy for the Simple Calculator app">
+  <meta name="keywords" content="privacy policy, simple calculator">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #e3e6ea;
+      --accent: #2f6fde;
+      --summary-bg: #f2f6fd;
+      --summary-border: #d4e1f8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --text: #e6e8eb;
+        --muted: #9aa3ad;
+        --border: #2a2f37;
+        --accent: #6ea2ff;
+        --summary-bg: #161d2b;
+        --summary-border: #263553;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 16px 64px;
+    }
+    header { margin-bottom: 28px; }
+    .app-name {
+      margin: 0 0 4px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.2;
+    }
+    .date { margin: 0; color: var(--muted); font-size: 15px; }
+    .summary {
+      background: var(--summary-bg);
+      border: 1px solid var(--summary-border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 8px;
+    }
+    .summary h2 { margin-top: 0; }
+    .summary ul { margin: 0; padding-left: 20px; }
+    .summary li { margin-bottom: 4px; }
+    .summary li:last-child { margin-bottom: 0; }
+    section {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+    h2 { margin: 0 0 8px; font-size: 20px; line-height: 1.3; }
+    p { margin: 0 0 12px; }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 480px) {
+      main { padding-top: 32px; }
+      h1 { font-size: 28px; }
+      .summary { padding: 16px 18px; }
+    }
+  </style>
 </head>
 <body>
+  <main>
+    <header>
+      <p class="app-name">Simple Calculator</p>
+      <h1>Privacy Policy</h1>
+      <p class="date">Last updated: November 3, 2026</p>
+    </header>
 
-  <h2>Privacy Policy</h2>
-  <p><strong>Effective date:</strong> July 26, 2025</p>
+    <div class="summary">
+      <h2>Summary</h2>
+      <ul>
+        <li>The app does not collect, store, or share any personal data.</li>
+        <li>The app does not require an internet connection or any device permissions.</li>
+        <li>The app contains no advertising, analytics, or tracking.</li>
+        <li>Data entered in the app is not saved and is discarded when the app is closed.</li>
+      </ul>
+    </div>
 
-  <p>
-    <strong>Simple Calculator</strong> (hereinafter "the app") is developed and published by <strong>Ro Do</strong> (hereinafter "the owner").
-  </p>
+    <section>
+      <h2>General Information</h2>
+      <p>This Privacy Policy applies to the mobile application <strong>Simple Calculator</strong> (hereinafter “the app”), developed and published by <strong>Roman Dorofieiev</strong> (hereinafter “the developer”), who is the owner of all rights to the app.</p>
+      <p>The app is provided free of charge and may be used for any lawful purpose.</p>
+    </section>
 
-  <p>
-    Simple Calculator is a free application provided to users at no cost and may be used for any lawful purpose.
-  </p>
+    <section>
+      <h2>Data Collection</h2>
+      <p>The app does not collect, store, process, or transmit any personal or tracking data.</p>
+      <p>All data entered during the use of the app is ephemeral: it is used solely to perform calculations on the device and is not saved or transferred to the developer or any third party.</p>
+    </section>
 
-  <p>
-    The app is provided "as is" and the owner assumes no responsibility for its use or any consequences arising from its use.
-  </p>
+    <section>
+      <h2>Permissions</h2>
+      <p>The app does not request any device permissions, including access to the internet, camera, microphone, location, contacts, or storage.</p>
+    </section>
 
-  <h4>Collected Data</h4>
-  <p>
-    The app does not collect any personal or tracking data.
-    All data entered during app usage is ephemeral and is neither stored nor processed in any form.
-  </p>
+    <section>
+      <h2>Third-Party Services</h2>
+      <p>The app does not use any third-party services, including advertising, analytics, or crash reporting services.</p>
+    </section>
 
-  <h4>Contacts</h4>
-  <p>
-    If you have any questions regarding the app, please contact the owner via email:
-    <a href="mailto:rdprojectmail@google.com">rdprojectmail@google.com</a>
-  </p>
+    <section>
+      <h2>Google Play</h2>
+      <p>The app is distributed through Google Play. Google may collect certain information, such as installation statistics and crash reports, in accordance with the user’s device settings. Such collection is performed by Google and is governed by the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. The developer does not receive any personal data from this information.</p>
+    </section>
 
+    <section>
+      <h2>Children’s Privacy</h2>
+      <p>The app does not collect any information from users of any age, including children under the age of 13.</p>
+    </section>
+
+    <section>
+      <h2>User Rights</h2>
+      <p>Since the developer does not collect or hold any personal data, there is no data to access, correct, export, or delete under applicable data protection laws, including the GDPR and the CCPA.</p>
+    </section>
+
+    <section>
+      <h2>Disclaimer of Liability</h2>
+      <p>The app is provided “as is”, without warranties of any kind, express or implied. The developer assumes no responsibility for the use of the app and disclaims all liability for any consequences arising from its use, including the results of any calculations performed with the app.</p>
+    </section>
+
+    <section>
+      <h2>Changes to This Policy</h2>
+      <p>The developer may update this Privacy Policy from time to time. Any changes will be published on this page and take effect from the date indicated as “Last updated”.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>For any questions regarding the app or this Privacy Policy, please contact the developer by email: <a href="mailto:rdprojectmail@gmail.com">rdprojectmail@gmail.com</a>.</p>
+    </section>
+
+    <footer>© 2025 Roman Dorofieiev. All rights reserved.</footer>
+  </main>
 </body>
 </html>
-
-
